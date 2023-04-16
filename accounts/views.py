@@ -31,10 +31,10 @@ class SingUp(generics.GenericAPIView):
 
 class Login(APIView):
     def post(self,request:Request):
-        email = request.data.get('email')
+        phone_num = request.data.get('phone_num')
         password = request.data.get('password')
 
-        user = authenticate(email = email,password = password)
+        user = authenticate(phone_num = phone_num,password = password)
 
         if user is not None:
             response = {
@@ -43,7 +43,7 @@ class Login(APIView):
             }
             return Response(data=response,status=status.HTTP_200_OK)
         else:
-            return Response(data={'message':'Invaild email and password'})
+            return Response(data={'message':'Invaild phone number and password'})
     def get(self,request:Request):
         content = {'user':str(request.user),'auth':str(request.auth)}
         return Response(data=content,status=status.HTTP_200_OK)
