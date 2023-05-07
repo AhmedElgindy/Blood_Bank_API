@@ -1,0 +1,32 @@
+.venv
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+
+# Django related files
+*.log
+*.pot
+*.pyc
+*.swp
+local_settings.py
+
+# Media files
+media/
+
+# Database
+*.db
+*.sqlite3
+
+# Static files
+staticfiles/
+
+# Ignore pipenv virtual environment folder
+/.venv
+
+# Ignore macOS folder attributes
+.DS_Store
+
+# Ignore pytest cache folder
+pytest_cache/
