@@ -9,6 +9,10 @@ class BloodRequestSerializer(serializers.ModelSerializer):
  
     class Meta:
         model = BloodRequest
-        fields = "__all__"
+        fields = ['user','Fname','location']
 
-    
+class BloodRequestCreateSerializer(serializers.ModelSerializer):
+    user = serializers.CharField(read_only=True)
+    class Meta:
+        model =BloodRequest
+        fields = ['user','Fname','location']

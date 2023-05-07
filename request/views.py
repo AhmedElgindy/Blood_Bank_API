@@ -5,9 +5,9 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from .models import BloodRequest
-from .sieralizer import BloodRequestSerializer
+from .sieralizer import BloodRequestSerializer,BloodRequestCreateSerializer
 
-
+# this for the self
 class BloodRequestCreateAPIView(CreateAPIView):
     queryset = BloodRequest.objects.all()
     serializer_class = BloodRequestSerializer
@@ -17,6 +17,14 @@ class BloodRequestCreateAPIView(CreateAPIView):
         fname = self.request.user.Fname
         location = self.request.user.location
         serializer.save(user=self.request.user,Fname = fname,location = location),
+# this for the other
+class BloodRequestCreateManuallyAPIView(CreateAPIView):
+    queryset = BloodRequest.objects.all()
+    serializer_class = BloodRequestCreateSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user = self.request.user)
 # this function that update approvel to the request
 @api_view(["POST"])
 @permission_classes([IsAdminUser])

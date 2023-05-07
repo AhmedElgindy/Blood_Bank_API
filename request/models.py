@@ -10,7 +10,5 @@ class BloodRequest(models.Model):
     time = models.TimeField(auto_now_add= True)
     approved = models.BooleanField(default=False)
 
-    def __str__(self) :
-        return self.Fname
-   
+
     
