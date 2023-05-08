@@ -2,7 +2,7 @@ from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated,IsAdminUser
 from rest_framework.decorators import api_view,permission_classes
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status,generics
 
 from .models import BloodRequest
 from .sieralizer import BloodRequestSerializer,BloodRequestCreateSerializer
@@ -18,6 +18,7 @@ class BloodRequestCreateAPIView(CreateAPIView):
         location = self.request.user.location
         serializer.save(user=self.request.user,Fname = fname,location = location),
 # this for the other
+
 class BloodRequestCreateManuallyAPIView(CreateAPIView):
     queryset = BloodRequest.objects.all()
     serializer_class = BloodRequestCreateSerializer
@@ -25,7 +26,9 @@ class BloodRequestCreateManuallyAPIView(CreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(user = self.request.user)
+
 # this function that update approvel to the request
+
 @api_view(["POST"])
 @permission_classes([IsAdminUser])
 def approved(request,pk):
@@ -36,3 +39,18 @@ def approved(request,pk):
     bloodRequest.approved = True
     bloodRequest.save()
     return Response({"message":"Blood request has succfully updated "})
+
+# * this function should list all the blood request by the user 
+class UserBloodRequestsView(generics.ListAPIView):
+    serializer_class = BloodRequestSerializer
+    permission_classes = [IsAuthenticated]
+    def get_queryset(self):
+        user = self.request.user
+        return BloodRequest.objects.filter(user=user)
+
+# * this funciton to list all the blood request 
+class BloodRequestListView(generics.ListAPIView):
+    queryset = BloodRequest.objects.all()
+    permission_classes = [IsAdminUser]
+    serializer_class = BloodRequestSerializer
+    

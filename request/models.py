@@ -8,6 +8,8 @@ class BloodRequest(models.Model):
     location = models.CharField(max_length=255)
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add= True)
+    #blood group 
+    
     approved = models.BooleanField(default=False)
 
 
