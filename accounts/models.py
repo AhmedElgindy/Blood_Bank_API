@@ -5,20 +5,6 @@ from rest_framework.authtoken.models import Token
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password, Fname, DateOfBirth, phone_num,location,blood_group, **extra_fields):
-        if not email:
-            raise ValueError('The Email field must be set')
-        if not password:
-            raise ValueError('password field must be set ')  
-        if not Fname:
-            raise ValueError('First Name field must be set ')  
-        if not DateOfBirth:
-            raise ValueError('Date of Birth field must be set ')  
-        if not phone_num:
-            raise ValueError('Phone number field must be set ')  
-        if not location:
-            raise ValueError('Location field must be set ')  
-        if not blood_group:
-            raise ValueError('Blood group field must be set ')  
         email = self.normalize_email(email)
         extra_fields.setdefault('is_active', True)
         user = self.model(email=email, Fname=Fname, DateOfBirth=DateOfBirth, phone_num= phone_num,location = location,blood_group = blood_group ,**extra_fields)
@@ -65,4 +51,6 @@ class CustomUser(AbstractBaseUser,PermissionsMixin):
     USERNAME_FIELD = 'phone_num'
     REQUIRED_FIELDS = []
     objects = CustomUserManager()
+    def __str__(self):
+        return self.phone_num
 

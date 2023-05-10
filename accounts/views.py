@@ -17,7 +17,6 @@ def getData(request):
 
 class SingUp(generics.GenericAPIView):
     serializer_class = RegisterSerializer
-
     def post(self,request:Request):
         data = request.data
 

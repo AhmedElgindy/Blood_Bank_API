@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     #local Apss
     'accounts',
-    'request'
+    'request',
 ]
 
 REST_FRAMEWORK = {
