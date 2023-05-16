@@ -10,7 +10,7 @@ class BloodRequestSerializer(serializers.ModelSerializer):
     blood_group =serializers.CharField(read_only = True)
     class Meta:
         model = BloodRequest
-        fields = ['user','Fname','location','approved','blood_group']
+        fields = "__all__"
 
 class BloodRequestCreateSerializer(serializers.ModelSerializer):
     user = serializers.CharField(read_only=True)
@@ -18,7 +18,7 @@ class BloodRequestCreateSerializer(serializers.ModelSerializer):
     blood_group =serializers.CharField(read_only = True)
     class Meta:
         model =BloodRequest
-        fields = ['user','Fname','location','approved','blood_group']
+        fields ="__all__"
 
 class DonateSieralizer(serializers.ModelSerializer):
     user = serializers.CharField(read_only=True)

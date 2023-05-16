@@ -78,5 +78,8 @@ def getUserProfile(request):
         'name': user.Fname,
         'phone_num': user.phone_num,
         'email': user.email,
+        'blood_group':user.blood_group,
+        'location':user.location
+
     }
     return Response(data=data,status=status.HTTP_202_ACCEPTED)
