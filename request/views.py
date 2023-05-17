@@ -42,6 +42,28 @@ def approved(request,pk):
     bloodRequest.save()
     return Response({"message":"Blood request has succfully updated "})
 
+#delete a blood request 
+@api_view(["POST"])
+@permission_classes([IsAdminUser])
+def deleteRequest(request,pk):
+    try:
+        bloodRequest = BloodRequest.objects.get(pk = pk)
+    except:
+        return  Response({"message":"the id is wrong"})
+    bloodRequest.delete()
+    return Response({"message":"the blood request has deleted "})
+
+#delete donate
+@api_view(["POST"])
+@permission_classes([IsAdminUser])
+def deleteDonate(request,pk):
+    try:
+        donate = Donate.objects.get(pk = pk)
+    except:
+        return  Response({"message":"the id is wrong "})
+    donate.delete()
+    return Response({"message":"the donate request has deleted "})
+
 # * this function should list all the blood request by the user 
 class UserBloodRequestsView(generics.ListAPIView):
     serializer_class = BloodRequestSerializer
@@ -107,5 +129,5 @@ class DonaterequestListView(generics.ListAPIView):
     def get_queryset(self):
         today = timezone.now().date()
         three_months_ago = today - timedelta(days=90)
-        return Donate.objects.filter(date_requested__range=[three_months_ago, today])
+        return Donate.objects.all()
  
