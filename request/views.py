@@ -57,7 +57,7 @@ class BloodRequestListView(generics.ListAPIView):
     def get_queryset(self):
         today = timezone.now().date()
         three_months_ago = today - timedelta(days=90)
-        return BloodRequest.objects.filter(date_requested__range=[three_months_ago, today])
+        return BloodRequest.objects.all()
  
     
 #----------------------------------------------------------------------------------------------------------------------------#
