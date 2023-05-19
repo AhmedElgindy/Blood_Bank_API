@@ -37,4 +37,11 @@ class DonateSerializerCreate(serializers.ModelSerializer):
     class Meta:
         model =Donate
         fields = '__all__'
+    
+class DonateSerializerUpdate(serializers.ModelSerializer):
+    blood_group = serializers.ChoiceField(choices=Donate.BLOOD_GROUP, required=True)
+
+    class Meta:
+        model = Donate
+        fields = ['blood_group']
 
