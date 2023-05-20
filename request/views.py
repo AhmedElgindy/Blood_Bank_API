@@ -6,7 +6,7 @@ from rest_framework import status,generics
 from django.utils import timezone
 from datetime import timedelta
 from .models import BloodRequest,Donate
-from .sieralizer import BloodRequestSerializer,BloodRequestCreateSerializer,DonateSieralizer,DonateSerializerCreate
+from .sieralizer import BloodRequestSerializer,BloodRequestCreateSerializer,DonateSieralizer,DonateSerializerCreate,DonateSerializerUpdate
 
 # this for the self
 class BloodRequestCreateAPIView(CreateAPIView):
@@ -102,17 +102,7 @@ class DonateCreateManuallyAPIView(CreateAPIView):
     def perform_create(self, serializer):
         serializer.save(user = self.request.user)
 
-@api_view(["POST"])
-@permission_classes([IsAdminUser])
-def approvedDonate(request,pk):
-    try:
-        donate = Donate.objects.get(pk = pk)
-    except:
-        return Response(status=status.HTTP_404_NOT_FOUND)
 
-    donate.approved = True
-    donate.save()
-    return Response({"message":"donate request has succfully updated "})
 
 # * this function should list all the blood request by the user 
 class UserDonaterequestsView(generics.ListAPIView):
@@ -128,6 +118,22 @@ class DonaterequestListView(generics.ListAPIView):
     serializer_class = DonateSieralizer
     def get_queryset(self):
         today = timezone.now().date()
-        three_months_ago = today - timedelta(days=90)
         return Donate.objects.all()
  
+#this function  for adding the blood group
+@permission_classes([IsAdminUser])
+@api_view(['PUT'])
+def update_donation_blood_group(request, pk):
+    try:
+        donation = Donate.objects.get(pk=pk)
+    except Donate.DoesNotExist:
+        return Response({'message': 'Donation not found'}, status=404)
+
+    if request.method == 'PUT':
+        serializer = DonateSerializerUpdate(data=request.data)
+        if serializer.is_valid():
+            donation.blood_group = serializer.validated_data.get('blood_group')
+            donation.approved = True
+            donation.save()
+            return Response({'message': 'Blood group updated successfully'})
+        return Response(serializer.errors, status=400)
