@@ -15,3 +15,4 @@ urlpatterns = [
     path('user/donate-requests/',views.UserDonaterequestsView.as_view(),name="user requests"),
     path('all/donate-requests/',views.DonaterequestListView.as_view(),name="all requests"),
 ]
+
