@@ -66,7 +66,7 @@ def deleteDonate(request,pk):
 
 # * this function should list all the blood request by the user 
 class UserBloodRequestsView(generics.ListAPIView):
-    serializer_class = BloodRequestSerializer
+    serializer_class = BloodRequestCreateSerializer
     permission_classes = [IsAuthenticated]
     def get_queryset(self):
         user = self.request.user
@@ -77,8 +77,7 @@ class BloodRequestListView(generics.ListAPIView):
     permission_classes = [IsAdminUser]
     serializer_class = BloodRequestSerializer
     def get_queryset(self):
-        today = timezone.now().date()
-        three_months_ago = today - timedelta(days=90)
+      
         return BloodRequest.objects.all()
  
     
@@ -106,7 +105,7 @@ class DonateCreateManuallyAPIView(CreateAPIView):
 
 # * this function should list all the blood request by the user 
 class UserDonaterequestsView(generics.ListAPIView):
-    serializer_class = DonateSieralizer
+    serializer_class = DonateSerializerCreate
     permission_classes = [IsAuthenticated]
     def get_queryset(self):
         user = self.request.user
@@ -115,7 +114,7 @@ class UserDonaterequestsView(generics.ListAPIView):
 # * this funciton to list all the blood request 
 class DonaterequestListView(generics.ListAPIView):
     permission_classes = [IsAdminUser]
-    serializer_class = DonateSieralizer
+    serializer_class = DonateSerializerCreate
     def get_queryset(self):
         today = timezone.now().date()
         return Donate.objects.all()
