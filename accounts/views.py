@@ -12,7 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 @api_view(['GET'])
 def getData(request):
-    content = {'name':'Ahmed'}
+    content = {'servier':'true'}
     return Response(content)
 
 class SingUp(generics.GenericAPIView):

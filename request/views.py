@@ -44,7 +44,7 @@ def approved(request,pk):
 
 #delete a blood request 
 @api_view(["POST"])
-@permission_classes([IsAdminUser])
+@permission_classes([IsAuthenticated])
 def deleteRequest(request,pk):
     try:
         bloodRequest = BloodRequest.objects.get(pk = pk)
@@ -55,7 +55,7 @@ def deleteRequest(request,pk):
 
 #delete donate
 @api_view(["POST"])
-@permission_classes([IsAdminUser])
+@permission_classes([IsAuthenticated])
 def deleteDonate(request,pk):
     try:
         donate = Donate.objects.get(pk = pk)
@@ -79,8 +79,14 @@ class BloodRequestListView(generics.ListAPIView):
     def get_queryset(self):
       
         return BloodRequest.objects.all()
- 
-    
+#accepted bloodrequest
+
+class BloodRequestAccepted(generics.ListAPIView):
+    permission_classes = [IsAdminUser]
+    serializer_class = BloodRequestSerializer
+    def get_queryset(self):
+      
+        return BloodRequest.objects.filter(approved = True)
 #----------------------------------------------------------------------------------------------------------------------------#
 class DonateCreateAPIView(CreateAPIView):
     gueryset = Donate.objects.all()
@@ -120,9 +126,12 @@ class DonaterequestListView(generics.ListAPIView):
         return Donate.objects.all()
  
 #this function  for adding the blood group
-@permission_classes([IsAdminUser])
+
 @api_view(['PUT'])
+@permission_classes([IsAdminUser])
+
 def update_donation_blood_group(request, pk):
+    
     try:
         donation = Donate.objects.get(pk=pk)
     except Donate.DoesNotExist:
