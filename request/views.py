@@ -78,7 +78,7 @@ class BloodRequestListView(generics.ListAPIView):
     serializer_class = BloodRequestSerializer
     def get_queryset(self):
       
-        return BloodRequest.objects.all()
+        return BloodRequest.objects.filter(approved = False)
 #accepted bloodrequest
 
 class BloodRequestAccepted(generics.ListAPIView):
@@ -123,7 +123,7 @@ class DonaterequestListView(generics.ListAPIView):
     serializer_class = DonateSerializerCreate
     def get_queryset(self):
         today = timezone.now().date()
-        return Donate.objects.all()
+        return Donate.objects.filter(approved = False)
  
 #this function  for adding the blood group
 
