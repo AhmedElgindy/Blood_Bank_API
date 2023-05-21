@@ -75,7 +75,7 @@ class UserBloodRequestsView(generics.ListAPIView):
 # * this funciton to list all the blood request 
 class BloodRequestListView(generics.ListAPIView):
     permission_classes = [IsAdminUser]
-    serializer_class = BloodRequestSerializer
+    serializer_class = BloodRequestCreateSerializer
     def get_queryset(self):
       
         return BloodRequest.objects.filter(approved = False)
