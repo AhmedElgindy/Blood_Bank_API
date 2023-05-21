@@ -29,6 +29,7 @@ class SingUp(generics.GenericAPIView):
             
             return Response(data=respone,status=status.HTTP_201_CREATED)
         return Response(status=status.HTTP_400_BAD_REQUEST,data=serializer.errors)
+   
 
 class Login(APIView):
     def post(self, request: Request):
@@ -49,7 +50,7 @@ class Login(APIView):
             return Response(data={'message': 'Invalid phone number and password'})
 
     def get(self, request: Request):
-        content = {'user': str(request.user), 'auth': str(request.auth)}
+        content = {'phone_num': str(request.user), 'password': str(request.auth)}
         return Response(data=content, status=status.HTTP_200_OK)
 class Logout(APIView):
     permission_classes = [IsAuthenticated]

@@ -18,7 +18,7 @@ class BloodRequestCreateSerializer(serializers.ModelSerializer):
     blood_group = serializers.CharField(required=False, allow_blank=True)
     class Meta:
         model = BloodRequest
-        fields = ['id', 'user', 'Fname', 'location', 'approved', 'blood_group', 'date', 'time']
+        fields = "__all__"
 
 class DonateSieralizer(serializers.ModelSerializer):
     user = serializers.CharField(read_only=True)
