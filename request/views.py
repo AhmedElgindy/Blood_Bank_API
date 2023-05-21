@@ -83,10 +83,10 @@ class BloodRequestListView(generics.ListAPIView):
 
 class BloodRequestAccepted(generics.ListAPIView):
     permission_classes = [IsAdminUser]
-    serializer_class = BloodRequestSerializer
+    serializer_class = DonateSerializerCreate
     def get_queryset(self):
-      
-        return BloodRequest.objects.filter(approved = True)
+       
+        return Donate.objects.filter(approved = True)
 #----------------------------------------------------------------------------------------------------------------------------#
 class DonateCreateAPIView(CreateAPIView):
     gueryset = Donate.objects.all()
